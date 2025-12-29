@@ -1,0 +1,7 @@
+ultralytics
+torch
+torchvision
+thop
+psutil
+pandas
+pyyaml
