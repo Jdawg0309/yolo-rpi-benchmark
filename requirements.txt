@@ -1,7 +1,14 @@
-ultralytics
-torch
-torchvision
-thop
-psutil
-pandas
-pyyaml
+# Core YOLO / inference
+ultralytics==8.1.0
+
+# PyTorch (CPU-only; ARM64-compatible wheels)
+torch==2.1.0
+torchvision==0.16.0
+
+# Profiling / metrics
+thop==0.1.1.post2209072238
+psutil==5.9.8
+
+# Data handling
+pandas==2.1.4
+pyyaml==6.0.1

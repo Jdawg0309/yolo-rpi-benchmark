@@ -14,15 +14,35 @@ fi
 
 source .venv/bin/activate
 
-# ---- Python packages ----
-pip install --upgrade pip
+# ---- Python tooling ----
+pip install --upgrade pip setuptools wheel
+
+# ---- PyTorch (ARM64, CPU-only) ----
+echo "📦 Installing PyTorch (ARM64 CPU wheels)"
+pip install torch==2.1.0 torchvision==0.16.0 \
+  --index-url https://download.pytorch.org/whl/cpu
+
+# ---- Remaining dependencies ----
 pip install -r requirements.txt
 
-# ---- Download YOLOv11 model ----
-yolo download model=yolo11n.pt
+# ---- Model weights ----
+if [ ! -f "yolo11n.pt" ]; then
+  echo "📥 Downloading YOLOv11n weights"
+  python - <<EOF
+from ultralytics import YOLO
+YOLO("yolo11n.pt")
+EOF
+fi
 
+# ---- Environment summary ----
 echo ""
 echo "✅ Setup complete"
+echo "Python: $(python --version)"
+echo "Torch: $(python - <<EOF
+import torch; print(torch.__version__)
+EOF
+)"
+
 echo ""
 echo "Next steps:"
 echo "  source .venv/bin/activate"
